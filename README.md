@@ -13,7 +13,6 @@ To use it, follow these steps:
  3) In the developer console, paste the code that is shown under "Create the functions" section.  Then press ENTER.
  4) Select the calendar year for which you want to download statements
  5) Type this command in the developer console: openAll(lastResponse);
- 6) Press ENTER.  You'll know you were successful when a bunch of browser tabs open up.
-* Note: make sure that AdBlock allows you to open these tabs
+ 6) Press ENTER.  You'll know you were successful when a bunch of browser tabs open up. *(Note: make sure that AdBlock allows you to open these tabs)*
  7) Download the PDF files.  It might make later steps easier if you follow this naming convention: "yyyy-mm.pdf" 
  8) Repeat steps 4-6 as needed
