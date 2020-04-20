@@ -52,3 +52,4 @@ function openAll(payload) {
 
 
 /* Make sure to run this script once you finish */
+openAll(lastResponse);
