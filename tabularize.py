@@ -42,6 +42,7 @@ def standardize_cols(df, header):
 # create test DFs
 header = ['Date', 'Check Number', 'Description',
           'Inflow', 'Outflow', 'Balance']
-x = standardize_cols(rows[0], header)
-y = standardize_cols(rows[1], header)
-z = standardize_cols(rows[2], header)
+
+# merge all DFs to one
+july_dfs = [standardize_cols(row, header) for row in rows]
+july_dfs = pd.concat(july_dfs)
