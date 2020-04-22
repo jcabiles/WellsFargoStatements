@@ -11,8 +11,11 @@ def standardize_cols(df, colnames, year):
     a different number of columns, this function ensures that they all
     have the same number of columns.
 
+    Note that this function assumes that the 'Date' column has already been named.
+
     :param df: dataframe
     :param colnames: list of column names
+    :param year: string that will be appended to Date col, which is mm/dd format
     :return:
 
     """
@@ -23,12 +26,12 @@ def standardize_cols(df, colnames, year):
     if len(df.columns) > 5:
         copy_df = copy_df
         copy_df.columns = colnames
-        copy_df[0] = copy_df[0] + year
+        copy_df['Date'] = copy_df['Date'] + year
         return copy_df
     elif len(df.columns) == 5:
         copy_df.insert(loc=1, column='Number', value=np.nan)
         copy_df.columns = colnames
-        copy_df[0] = copy_df[0] + year
+        copy_df['Date'] = copy_df['Date'] + year
         return copy_df
     else:
         pass
@@ -53,7 +56,8 @@ def flatten_all_statements(statement_files_dir, colnames):
                            silent=True,
                            encoding='utf-8',
                            pandas_options={'header': None})
-        df_list = [standardize_cols(df, colnames) for df in df_list]
+        year = file.split('_')[0]
+        df_list = [standardize_cols(df, colnames, year) for df in df_list]
         df_list = pd.concat(df_list)
         all_statements.append(df_list)
     all_statements = pd.concat(all_statements)
@@ -69,4 +73,5 @@ all_dfs = flatten_all_statements(statements_dir, header)
 dfs_2017 = all_dfs.dropna(subset=['Date'])
 dfs_2017 = dfs_2017.dropna(subset=['Description'])
 dfs_2017 = dfs_2017[dfs_2017['Description'] != 'Description']
-dfs_2017['Date'] = dfs_2017['Date'] + '/2017'
+
+
