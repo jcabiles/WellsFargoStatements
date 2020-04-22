@@ -43,10 +43,6 @@ def standardize_cols(df, header):
 colnames = ['Date', 'Check Number', 'Description',
             'Inflow', 'Outflow', 'Balance']
 
-# merge all DFs to one
-july_dfs = [standardize_cols(row, colnames) for row in rows]
-july_dfs = pd.concat(july_dfs)
-
 
 # iterate over directory to find and pr
 # ocess all PDF files
