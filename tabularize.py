@@ -39,11 +39,6 @@ def standardize_cols(df, header):
         pass
 
 
-# create test DFs
-header = {'Date', 'Check Number', 'Description',
-          'Inflow', 'Outflow', 'Balance'}
-
-
 def flatten_all_statements(statement_files_dir, colnames):
     """
     This function finds all PDF files inside a directory and– if they are valid
@@ -72,4 +67,6 @@ def flatten_all_statements(statement_files_dir, colnames):
 
 
 statements_dir = './StatementFiles/'
+header = {'Date', 'Check Number', 'Description',
+          'Inflow', 'Outflow', 'Balance'}
 list_dfs = flatten_all_statements(statements_dir)
