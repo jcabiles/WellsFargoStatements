@@ -5,7 +5,7 @@ from copy import copy
 from glob import glob
 
 
-def standardize_cols(df, colnames):
+def standardize_cols(df, colnames, year):
     """
     Because the bank statements produced by tabula.read_pdf all have
     a different number of columns, this function ensures that they all
@@ -23,10 +23,12 @@ def standardize_cols(df, colnames):
     if len(df.columns) > 5:
         copy_df = copy_df
         copy_df.columns = colnames
+        copy_df[0] = copy_df[0] + year
         return copy_df
     elif len(df.columns) == 5:
         copy_df.insert(loc=1, column='Number', value=np.nan)
         copy_df.columns = colnames
+        copy_df[0] = copy_df[0] + year
         return copy_df
     else:
         pass
@@ -67,3 +69,4 @@ all_dfs = flatten_all_statements(statements_dir, header)
 dfs_2017 = all_dfs.dropna(subset=['Date'])
 dfs_2017 = dfs_2017.dropna(subset=['Description'])
 dfs_2017 = dfs_2017[dfs_2017['Description'] != 'Description']
+dfs_2017['Date'] = dfs_2017['Date'] + '/2017'
