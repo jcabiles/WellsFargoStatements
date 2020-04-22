@@ -4,13 +4,6 @@ import numpy as np
 from copy import copy
 from glob import glob
 
-statement_file = './StatementFiles/2017-07.pdf'
-rows = read_pdf(statement_file,
-                pages='all',
-                silent=True,
-                encoding='utf-8',
-                pandas_options={'header': None})
-
 
 def standardize_cols(df, header):
     """
