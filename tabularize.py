@@ -44,9 +44,15 @@ colnames = ['Date', 'Check Number', 'Description',
             'Inflow', 'Outflow', 'Balance']
 
 
-# iterate over directory to find and pr
-# ocess all PDF files
 def flatten_all_statements(statement_files_dir):
+    """
+    This function finds all PDF files inside a directory and– if they are valid
+    Wells Fargo statement files– runs standardize_cols() func on them and
+    flattens all statements into a single dataframe.
+
+    :param statement_files_dir: directory that contains Wells Fargo statement files
+    :return:
+    """
     statement_files = glob(f'./{statement_files_dir}/*.pdf')
     all_statements = []
     for file in statement_files:
