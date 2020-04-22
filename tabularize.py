@@ -64,4 +64,6 @@ header = ['Date', 'Check Number', 'Description',
           'Inflow', 'Outflow', 'Balance']
 all_dfs = flatten_all_statements(statements_dir, header)
 
-# dfs_2017 = all_dfs.dropna(subset=['Date'])
+dfs_2017 = all_dfs.dropna(subset=['Date'])
+dfs_2017 = dfs_2017.dropna(subset=['Description'])
+dfs_2017 = dfs_2017[dfs_2017['Description'] != 'Description']
