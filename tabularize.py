@@ -60,9 +60,8 @@ def flatten_all_statements(statement_files_dir, colnames):
 
 
 statements_dir = './StatementFiles/'
-header = {'Date', 'Check Number', 'Description',
-          'Inflow', 'Outflow', 'Balance'}
+header = ['Date', 'Check Number', 'Description',
+          'Inflow', 'Outflow', 'Balance']
 all_dfs = flatten_all_statements(statements_dir, header)
 
-
-dfs_2017 = all_dfs.dropna(subset=['Date'])
+# dfs_2017 = all_dfs.dropna(subset=['Date'])
