@@ -26,12 +26,12 @@ def standardize_cols(df, colnames, year):
     if len(df.columns) > 5:
         copy_df = copy_df
         copy_df.columns = colnames
-        copy_df['Date'] = copy_df['Date'] + year
+        copy_df['Date'] = copy_df['Date'] + f'/{year}'
         return copy_df
     elif len(df.columns) == 5:
         copy_df.insert(loc=1, column='Number', value=np.nan)
         copy_df.columns = colnames
-        copy_df['Date'] = copy_df['Date'] + year
+        copy_df['Date'] = copy_df['Date'] + f'/{year}'
         return copy_df
     else:
         pass
@@ -56,7 +56,7 @@ def flatten_all_statements(statement_files_dir, colnames):
                            silent=True,
                            encoding='utf-8',
                            pandas_options={'header': None})
-        year = file.split('_')[0]
+        year = file.split('/')[3].split('-')[0]
         df_list = [standardize_cols(df, colnames, year) for df in df_list]
         df_list = pd.concat(df_list)
         all_statements.append(df_list)
@@ -70,8 +70,14 @@ header = ['Date', 'Check Number', 'Description',
           'Inflow', 'Outflow', 'Balance']
 all_dfs = flatten_all_statements(statements_dir, header)
 
+# drop useless rows
 dfs_2017 = all_dfs.dropna(subset=['Date'])
 dfs_2017 = dfs_2017.dropna(subset=['Description'])
 dfs_2017 = dfs_2017[dfs_2017['Description'] != 'Description']
 
-
+# cast columns to useful data types
+dfs_2017['Date'] = pd.to_datetime(dfs_2017['Date'])
+dfs_2017['Date'] = dfs_2017['Date'].apply(lambda x: x.strftime('%Y/%m/%d'))
+dfs_2017['Inflow'] = dfs_2017['Inflow'].str.replace(',', '').astype('float')
+dfs_2017['Outflow'] = dfs_2017['Outflow'].str.replace(',', '').astype('float')
+dfs_2017['Balance'] = dfs_2017['Balance'].str.replace(',', '').astype('float')
