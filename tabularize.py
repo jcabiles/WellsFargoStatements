@@ -28,20 +28,20 @@ def standardize_cols(df, header):
     if len(df.columns) > 5:
         copy_df = copy_df
         copy_df.columns = header
+        return copy_df
+
     elif len(df.columns) == 5:
         copy_df.insert(loc=1, column='Number', value=np.nan)
         copy_df.columns = header
-    else:
-        copy_df = np.nan
+        return copy_df
 
-    return copy_df
+    else:
+        pass
+
 
 # create test DFs
 header = ['Date', 'Check Number', 'Description',
           'Inflow', 'Outflow', 'Balance']
 x = standardize_cols(rows[0], header)
-y = standardize_cols(rows[1])
-z = standardize_cols(rows[2])
-
-# merge all DFs to one
-july_dfs = pd.concat([x, y])
+y = standardize_cols(rows[1], header)
+z = standardize_cols(rows[2], header)
