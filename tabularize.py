@@ -51,7 +51,6 @@ july_dfs = pd.concat(july_dfs)
 # iterate over directory to find and pr
 # ocess all PDF files
 def loop_statement_files(statement_files_dir):
-    statements_dir = statement_files_dir
     statement_files = glob(f'./{statement_files_dir}/*.pdf')
     all_statements = []
     for file in statement_files:
