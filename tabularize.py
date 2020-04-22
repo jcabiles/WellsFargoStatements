@@ -24,10 +24,10 @@ def standardize_cols(df):
     copy_df = copy(df)
 
     # insert columns if needed.  otherwise delete useless dataframe.
-    if len(df.columns) == 5:
-        copy_df.insert(loc=1, column='Number', value=np.nan)
     if len(df.columns) > 5:
         copy_df = copy_df
+    elif len(df.columns) == 5:
+        copy_df.insert(loc=1, column='Number', value=np.nan)
     else:
         copy_df = np.nan
 
