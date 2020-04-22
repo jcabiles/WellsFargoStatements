@@ -5,14 +5,14 @@ from copy import copy
 from glob import glob
 
 
-def standardize_cols(df, header):
+def standardize_cols(df, colnames):
     """
     Because the bank statements produced by tabula.read_pdf all have
     a different number of columns, this function ensures that they all
     have the same number of columns.
 
     :param df: dataframe
-    :param header: list of column names
+    :param colnames: list of column names
     :return:
 
     """
@@ -22,11 +22,11 @@ def standardize_cols(df, header):
     # insert columns if needed.  otherwise delete useless dataframe.
     if len(df.columns) > 5:
         copy_df = copy_df
-        copy_df.columns = header
+        copy_df.columns = colnames
         return copy_df
     elif len(df.columns) == 5:
         copy_df.insert(loc=1, column='Number', value=np.nan)
-        copy_df.columns = header
+        copy_df.columns = colnames
         return copy_df
     else:
         pass
