@@ -46,7 +46,7 @@ def flatten_all_statements(statement_files_dir, colnames):
     statement_files = glob(f'./{statement_files_dir}/*.pdf')
     all_statements = []
     for file in statement_files:
-        df_list = read_pdf(statement_file,
+        df_list = read_pdf(file,
                            pages='all',
                            silent=True,
                            encoding='utf-8',
@@ -62,4 +62,4 @@ def flatten_all_statements(statement_files_dir, colnames):
 statements_dir = './StatementFiles/'
 header = {'Date', 'Check Number', 'Description',
           'Inflow', 'Outflow', 'Balance'}
-list_dfs = flatten_all_statements(statements_dir)
+list_dfs = flatten_all_statements(statements_dir, header)
