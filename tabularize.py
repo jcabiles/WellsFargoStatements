@@ -40,17 +40,19 @@ def standardize_cols(df, header):
 
 
 # create test DFs
-colnames = ['Date', 'Check Number', 'Description',
-            'Inflow', 'Outflow', 'Balance']
+header = {'Date', 'Check Number', 'Description',
+          'Inflow', 'Outflow', 'Balance'}
 
 
-def flatten_all_statements(statement_files_dir):
+def flatten_all_statements(statement_files_dir, colnames):
     """
     This function finds all PDF files inside a directory and– if they are valid
     Wells Fargo statement files– runs standardize_cols() func on them and
     flattens all statements into a single dataframe.
 
-    :param statement_files_dir: directory that contains Wells Fargo statement files
+    :param statement_files_dir: String value for the name of the directory that contains
+    Wells Fargo statement files
+    :param colnames: list that contains column names for statement dataframes.
     :return:
     """
     statement_files = glob(f'./{statement_files_dir}/*.pdf')
