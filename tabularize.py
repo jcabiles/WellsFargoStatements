@@ -2,13 +2,15 @@ from tabula import read_pdf
 import pandas as pd
 import numpy as np
 from copy import copy
+from glob import glob
 
-statement_file = './StatementFiles/2017-07.pdf'
+statement_file = './StatementFiles/2017-08.pdf'
 rows = read_pdf(statement_file,
                 pages='all',
                 silent=True,
                 encoding='utf-8',
                 pandas_options={'header': None})
+
 
 def standardize_cols(df, header):
     """
@@ -29,20 +31,30 @@ def standardize_cols(df, header):
         copy_df = copy_df
         copy_df.columns = header
         return copy_df
-
     elif len(df.columns) == 5:
         copy_df.insert(loc=1, column='Number', value=np.nan)
         copy_df.columns = header
         return copy_df
-
     else:
         pass
 
 
 # create test DFs
-header = ['Date', 'Check Number', 'Description',
-          'Inflow', 'Outflow', 'Balance']
+colnames = ['Date', 'Check Number', 'Description',
+            'Inflow', 'Outflow', 'Balance']
 
 # merge all DFs to one
-july_dfs = [standardize_cols(row, header) for row in rows]
+july_dfs = [standardize_cols(row, colnames) for row in rows]
 july_dfs = pd.concat(july_dfs)
+
+# iterate over directory to find and process all PDF files
+statements_dir = './StatementFiles/'
+statement_files = glob('./StatementFiles/*.pdf')
+all_statements = []
+for file in statement_files:
+    rows = read_pdf(statement_file,
+                    pages='all',
+                    silent=True,
+                    encoding='utf-8',
+                    pandas_options={'header': None})
+    all_statements.append(rows)
