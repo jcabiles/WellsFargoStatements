@@ -32,3 +32,8 @@ def standardize_cols(df):
         copy_df = np.nan
 
     return copy_df
+
+
+x = standardize_cols(rows[0])
+y = standardize_cols(rows[1])
+z = standardize_cols(rows[2])
