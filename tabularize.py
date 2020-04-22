@@ -59,7 +59,11 @@ def loop_statement_files(statement_files_dir):
                            silent=True,
                            encoding='utf-8',
                            pandas_options={'header': None})
+        df_list = [standardize_cols(df, colnames) for df in df_list]
+        df_list = pd.concat(df_list)
         all_statements.append(df_list)
+    all_statements = pd.concat(all_statements)
+
     return all_statements
 
 
