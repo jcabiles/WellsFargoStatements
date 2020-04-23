@@ -84,3 +84,22 @@ dfs_2017['Balance'] = dfs_2017['Balance'].str.replace(',', '').astype('float')
 # cast as str first to prevent int values from being turned into NaN after str replace
 dfs_2017['Outflow'] = dfs_2017['Outflow'].astype('str')
 dfs_2017['Outflow'] = dfs_2017['Outflow'].str.replace(',', '').astype('float')
+
+
+def cleanse_flattened_statements(statement_files_dir, header_list):
+    df = flatten_all_statements(statement_files_dir, header_list)
+
+    # drop useless rows
+    df = df.dropna(subset=['Date'])
+    df = df.dropna(subset=['Description'])
+    df = df[dfs_2017['Description'] != 'Description']
+
+    # cast columns to useful data types
+    df['Date'] = pd.to_datetime(df['Date'])
+    df['Date'] = df['Date'].apply(lambda x: x.strftime('%Y/%m/%d'))
+    df['Inflow'] = df['Inflow'].str.replace(',', '').astype('float')
+    df['Balance'] = df['Balance'].str.replace(',', '').astype('float')
+
+    # cast as str first to prevent int values from being turned into NaN after str replace
+    df['Outflow'] = df['Outflow'].astype('str')
+    df['Outflow'] = df['Outflow'].str.replace(',', '').astype('float')
