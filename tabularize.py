@@ -84,13 +84,20 @@ def cleanse_flattened_statements(statement_files_dir):
     # cast as str first to prevent int values from being turned into NaN after str replace
     df['Outflow'] = df['Outflow'].astype('str')
     df['Outflow'] = df['Outflow'].str.replace(',', '').astype('float')
+
+    # create column that combines inflow and outflow
+    df['Cash Flow'] = np.where(df['Inflow'].isnull(),
+                               df['Outflow'] * -1,
+                               df['Inflow'])
+
     return df
 
 
 def main():
     statements_dir = './StatementFiles/'
-    df_2017 = cleanse_flattened_statements(statements_dir)
-    print(df_2017)
+    all_statements = cleanse_flattened_statements(statements_dir)
+    all_statements = all_statements.round(2)
+    all_statements.to_csv('2017-2020_statements.csv')
 
 
 if __name__ == "__main__":
