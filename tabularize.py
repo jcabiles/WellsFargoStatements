@@ -61,7 +61,6 @@ def flatten_all_statements(statement_files_dir, colnames):
         df_list = pd.concat(df_list)
         all_statements.append(df_list)
     all_statements = pd.concat(all_statements)
-
     return all_statements
 
 
@@ -85,9 +84,14 @@ def cleanse_flattened_statements(statement_files_dir):
     # cast as str first to prevent int values from being turned into NaN after str replace
     df['Outflow'] = df['Outflow'].astype('str')
     df['Outflow'] = df['Outflow'].str.replace(',', '').astype('float')
-
     return df
 
 
-statements_dir = './StatementFiles/'
-df_2017 = cleanse_flattened_statements(statements_dir)
+def main():
+    statements_dir = './StatementFiles/'
+    df_2017 = cleanse_flattened_statements(statements_dir)
+    print(df_2017)
+
+
+if __name__ == "__main__":
+    main()
