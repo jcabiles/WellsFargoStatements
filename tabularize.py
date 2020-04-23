@@ -79,5 +79,8 @@ dfs_2017 = dfs_2017[dfs_2017['Description'] != 'Description']
 dfs_2017['Date'] = pd.to_datetime(dfs_2017['Date'])
 dfs_2017['Date'] = dfs_2017['Date'].apply(lambda x: x.strftime('%Y/%m/%d'))
 dfs_2017['Inflow'] = dfs_2017['Inflow'].str.replace(',', '').astype('float')
-dfs_2017['Outflow'] = dfs_2017['Outflow'].str.replace(',', '').astype('float')
 dfs_2017['Balance'] = dfs_2017['Balance'].str.replace(',', '').astype('float')
+
+# cast as str first to prevent int values from being turned into NaN after str replace
+dfs_2017['Outflow'] = dfs_2017['Outflow'].astype('str')
+dfs_2017['Outflow'] = dfs_2017['Outflow'].str.replace(',', '').astype('float')
