@@ -86,13 +86,16 @@ dfs_2017['Outflow'] = dfs_2017['Outflow'].astype('str')
 dfs_2017['Outflow'] = dfs_2017['Outflow'].str.replace(',', '').astype('float')
 
 
-def cleanse_flattened_statements(statement_files_dir, header_list):
-    df = flatten_all_statements(statement_files_dir, header_list)
+def cleanse_flattened_statements(statement_files_dir):
+    header = ['Date', 'Check Number', 'Description',
+              'Inflow', 'Outflow', 'Balance']
+
+    df = flatten_all_statements(statement_files_dir, header)
 
     # drop useless rows
     df = df.dropna(subset=['Date'])
     df = df.dropna(subset=['Description'])
-    df = df[dfs_2017['Description'] != 'Description']
+    df = df[df['Description'] != 'Description']
 
     # cast columns to useful data types
     df['Date'] = pd.to_datetime(df['Date'])
@@ -103,3 +106,9 @@ def cleanse_flattened_statements(statement_files_dir, header_list):
     # cast as str first to prevent int values from being turned into NaN after str replace
     df['Outflow'] = df['Outflow'].astype('str')
     df['Outflow'] = df['Outflow'].str.replace(',', '').astype('float')
+
+    return df
+
+
+statements_dir = './StatementFiles/'
+df_2017 = cleanse_flattened_statements(statements_dir)
