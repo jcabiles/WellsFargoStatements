@@ -65,27 +65,6 @@ def flatten_all_statements(statement_files_dir, colnames):
     return all_statements
 
 
-statements_dir = './StatementFiles/'
-header = ['Date', 'Check Number', 'Description',
-          'Inflow', 'Outflow', 'Balance']
-all_dfs = flatten_all_statements(statements_dir, header)
-
-# drop useless rows
-dfs_2017 = all_dfs.dropna(subset=['Date'])
-dfs_2017 = dfs_2017.dropna(subset=['Description'])
-dfs_2017 = dfs_2017[dfs_2017['Description'] != 'Description']
-
-# cast columns to useful data types
-dfs_2017['Date'] = pd.to_datetime(dfs_2017['Date'])
-dfs_2017['Date'] = dfs_2017['Date'].apply(lambda x: x.strftime('%Y/%m/%d'))
-dfs_2017['Inflow'] = dfs_2017['Inflow'].str.replace(',', '').astype('float')
-dfs_2017['Balance'] = dfs_2017['Balance'].str.replace(',', '').astype('float')
-
-# cast as str first to prevent int values from being turned into NaN after str replace
-dfs_2017['Outflow'] = dfs_2017['Outflow'].astype('str')
-dfs_2017['Outflow'] = dfs_2017['Outflow'].str.replace(',', '').astype('float')
-
-
 def cleanse_flattened_statements(statement_files_dir):
     header = ['Date', 'Check Number', 'Description',
               'Inflow', 'Outflow', 'Balance']
