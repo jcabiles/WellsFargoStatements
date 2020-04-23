@@ -8,6 +8,7 @@ This script is based on the following thread: https://gist.github.com/binary1230
 ### Bulk downloads
 
 To use it, follow these steps:
+
 *Note: If you are using AdBlock or a similar extension, make sure to turn it off before running through these steps.*
  1) In Chrome browser, navigate to your Wells Fargo Statement Viewer and pull up the set of PDFs you want to view.
  2) Press F12 to open the developer tools and click the tab at the bottom that says 'Console'.
