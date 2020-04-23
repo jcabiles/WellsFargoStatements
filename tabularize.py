@@ -95,9 +95,9 @@ def cleanse_flattened_statements(statement_files_dir):
 
 def main():
     statements_dir = './StatementFiles/'
-    all_statements = cleanse_flattened_statements(statements_dir)
-    all_statements = all_statements.round(2)
-    all_statements.to_csv('2017-2020_statements.csv')
+    all_statements_df = cleanse_flattened_statements(statements_dir)
+    all_statements_df = all_statements_df.round(2)
+    all_statements_df.to_csv('2017-2020_statements.csv')
 
 
 if __name__ == "__main__":
