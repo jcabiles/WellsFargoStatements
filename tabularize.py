@@ -46,7 +46,7 @@ def flatten_all_statements(statement_files_dir, colnames):
     :param statement_files_dir: String value for the name of the directory that contains
     Wells Fargo statement files
     :param colnames: list that contains column names for statement dataframes.
-    :return:
+    :return: returns a Pandas dataframe
     """
     statement_files = glob(f'./{statement_files_dir}/*.pdf')
     all_statements = []
@@ -65,6 +65,7 @@ def flatten_all_statements(statement_files_dir, colnames):
 
 
 def cleanse_flattened_statements(statement_files_dir):
+
     header = ['Date', 'Check Number', 'Description',
               'Inflow', 'Outflow', 'Balance']
 
@@ -93,12 +94,12 @@ def cleanse_flattened_statements(statement_files_dir):
     return df
 
 
-def main():
-    statements_dir = './StatementFiles/'
-    all_statements_df = cleanse_flattened_statements(statements_dir)
-    all_statements_df = all_statements_df.round(2)
-    all_statements_df.to_csv('2017-2020_statements.csv')
+# def main():
+statements_dir = './StatementFiles/'
+all_statements_df = cleanse_flattened_statements(statements_dir)
+all_statements_df = all_statements_df.round(2)
+all_statements_df.to_csv('2017-2020_statements.csv')
 
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
