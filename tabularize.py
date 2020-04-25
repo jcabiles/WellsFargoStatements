@@ -65,7 +65,11 @@ def flatten_all_statements(statement_files_dir, colnames):
 
 
 def cleanse_flattened_statements(statement_files_dir):
+    """
 
+    :param statement_files_dir:
+    :return:
+    """
     header = ['Date', 'Check Number', 'Description',
               'Inflow', 'Outflow', 'Balance']
 
