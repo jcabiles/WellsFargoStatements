@@ -67,8 +67,9 @@ def flatten_all_statements(statement_files_dir, colnames):
 def cleanse_flattened_statements(statement_files_dir):
     """
 
-    :param statement_files_dir:
-    :return:
+
+    :param statement_files_dir: takes dataframe produced by flatten_all_statements()
+    :return: returns dataframe that only contains valid records
     """
     header = ['Date', 'Check Number', 'Description',
               'Inflow', 'Outflow', 'Balance']
