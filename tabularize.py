@@ -66,7 +66,9 @@ def flatten_all_statements(statement_files_dir, colnames):
 
 def cleanse_flattened_statements(statement_files_dir):
     """
-
+    This function takes a dataframe of Wells Fargo bank statement records and
+    cleans it by adding the correct header, getting rid of useless records (artifacts
+    of processing from earlier functions), and casts columns to the correct datatype.
 
     :param statement_files_dir: takes dataframe produced by flatten_all_statements()
     :return: returns dataframe that only contains valid records
