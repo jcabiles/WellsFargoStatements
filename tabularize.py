@@ -48,7 +48,7 @@ def flatten_all_statements(statement_files_dir, colnames):
     :param colnames: list that contains column names for statement dataframes.
     :return: returns a Pandas dataframe
     """
-    statement_files = glob(f'./{statement_files_dir}/*.pdf')
+    statement_files = glob(f'./{statement_files_dir}/2018*.pdf')
     all_statements = []
     for file in statement_files:
         df_list = read_pdf(file,
@@ -84,10 +84,14 @@ def cleanse_flattened_statements(statement_files_dir):
     df = df[df['Description'] != 'Description']
 
     # cast columns to useful data types
-    df['Date'] = pd.to_datetime(df['Date'])
-    df['Date'] = df['Date'].apply(lambda x: x.strftime('%Y/%m/%d'))
-    df['Inflow'] = df['Inflow'].str.replace(',', '').astype('float')
-    df['Balance'] = df['Balance'].str.replace(',', '').astype('float')
+    try:
+        df['Date'] = pd.to_datetime(df['Date'])
+        df['Date'] = df['Date'].apply(lambda x: x.strftime('%Y/%m/%d'))
+        df['Inflow'] = df['Inflow'].str.replace(',', '').astype('float')
+        df['Balance'] = df['Balance'].str.replace(',', '').astype('float')
+    except pd.errors.ParserError as e:
+        print(e)
+        pass
 
     # cast as str first to prevent int values from being turned into NaN after str replace
     df['Outflow'] = df['Outflow'].astype('str')
